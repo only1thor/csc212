@@ -1,0 +1,10 @@
+texbook:
+OpenDSA (but no textbooks are strictly needed. just a suggestion). 
+
+practice with:
+hackerRank
+Kattis
+
+
+can submit multiple times. since the sorce is autograded.
+submit early, and get ready to resubmit. (gradescope)

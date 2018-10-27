@@ -1,0 +1,5 @@
+# invariance
+in selection sort, the left side of the array is allways sorted. 
+so if some code stays true to this, then it is a valid implimentation. (no invariance).
+
+

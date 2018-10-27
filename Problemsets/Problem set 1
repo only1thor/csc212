@@ -1,0 +1,77 @@
+1)
+cd 
+cd ~
+cd /home/$USER
+
+mkdir test
+
+mv test myproject
+
+cd myproject
+
+touch main.c
+
+ls -a
+
+cd ..
+
+2)
+touch a.txt b.txt c.txt
+
+echo "1 2 3 4 5" >> a.txt
+
+echo "6 7 8 9 10" >> b.txt
+
+echo "11 12 13 14 15" >> c.txt
+
+cat a.txt b.txt c.txt >> all.txt
+
+3) Write a function that returns the length of a given string. For example, given "Test", return 4.
+
+4) Write a function that returns the number of words in a given string. Words are always separated by whitespace or tab characters.
+
+5) Write a function that returns a missing number in an array of integers ranging from 1 to n. For example, given [3, 2, 1, 5] and n = 5, output 4.
+
+6. Define a function that returns the average of the minimum and maximum elements in an unsorted array of integers when given the array and the number of elements. How would this code change if the input array is sorted?
+
+7. Draw the array represented by int arr[5]; use null to denote uninitialized memory.
+
+8. Now redraw the array after this code executes:
+*arr = 1;
+*(arr+2)=5;
+
+9. Define a void function that takes a pointer to an integer variable as a parameter, and increments its value by 10. (hint: void functions return type is void)
+
+
+10. What is the output of the following code? If it breaks at any point, indicate what went wrong.
+
+#include <iostream>
+int mystery(int x, int *y) {
+	x = x + 10;
+	*y = x * 2;
+	return x;
+}
+
+int* mystery2() {
+	int x = 50;
+	return &x;
+}
+int main() {
+	int x = 2, y = 3;
+	x = mystery(x, &y);
+	std::cout << "(x, y): (" << x << ", " << y << ")" << std::endl;
+	int *z = mystery2();
+	std::cout << "z: " << *z << std::endl;
+}
+
+11. Write a function that removes any duplicate integers from an input array and prints the resulting array. The function should also take the number of elements as a parameter. For example, given [1, 2, 2, 3, 4, 2, 5] and 7, the program should print [1, 2, 3, 4, 5].
+
+
+
+
+
+
+
+
+
+

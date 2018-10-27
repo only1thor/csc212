@@ -1,0 +1,10 @@
+# from class
+2018-10-25
+
+4 recursive calls. they can take care of the counting. 
+left, right, up, down. 
+
+if 1, then 1+recurse(up,down,left, and right). - add diagonals for type 8. 
+make sure to remove counted cells
+
+

@@ -87,11 +87,11 @@ bool sudokuSolve(int **arr,int x,int y){
   for(int i=1;i<10;i++){
     if(sudokuCheck(arr,x,y,i)){
       arr[x][y]=i;
-      check = sudokuSolve(arr,x+1,y);
-      if(check){
-        break;
+      if(sudokuSolve(arr,x+1,y)){
+        return 1;
       }
     }
+    arr[x][y]=0;
   }
   return check;
 };

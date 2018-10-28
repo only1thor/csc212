@@ -168,24 +168,20 @@ int main(int argc, char* argv[])
       array[i][j]=0;
     }
   }
-  int subr=0;
+
+
+
+
+
+  /* old test code 
   //build a 1-9 array to test some sudoku stuff
-  /*
   for(int c=0,i=0;i<3;i++){
     for(int j=0;j<3;j++){
       suArr[j][i]=1+c++;
     }
   }
-  */
   suArr[1][1]=0;
 
-  // build a couple blobs for testing.
-  for(int i=2;i<5;i++)
-    array[i][0]=1;
-  for(int i=2;i<5;i++)
-    array[i][1]=1;
-  array[1][3]=1;
-  array[0][4]=1;
 
   intPrinter(suArr,9,9);
   bool result = sudokuSolve(suArr,0,0);
@@ -196,9 +192,18 @@ int main(int argc, char* argv[])
     cout << endl << "nope.." << endl;
   }
   intPrinter(suArr,9,9);
-  /* old test code 
+
   cout << endl << sudokuCheck(suArr,1,1,1) <<endl;
   cout << argv[0] << endl << endl;
+
+  // build a couple blobs for testing.
+  for(int i=2;i<5;i++)
+    array[i][0]=1;
+  for(int i=2;i<5;i++)
+    array[i][1]=1;
+  array[1][3]=1;
+  array[0][4]=1;
+
   cout << "vale at point x:" << innC << " y:" << innR << endl;
   cout <<endl;
   int testerone = countBlob(array,columns,rows,type);// sizeOfBlob(array,columns,rows,innR,innC,type);

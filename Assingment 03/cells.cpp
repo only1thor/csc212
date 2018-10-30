@@ -36,85 +36,11 @@ int sizeOfBlob(bool** theArrayOfBlobs,int sizeOfX,int sizeOfY,int x,int y,int mo
   return counter;
 }
 
-int countBlob(bool** theArrayOfBlobs,int sizeOfX,int sizeOfY,int mode){
-  int blobCount=0;
-  for(int i=0;i<sizeOfY;i++){
-    for(int j=0;j<sizeOfX;j++){
-      if(sizeOfBlob(theArrayOfBlobs,sizeOfX,sizeOfY,j,i,mode)>0){
-        blobCount++;
-      }
-    }
-  }
-  return blobCount;
-}
-
-bool sudokuCheck(int **arr,int x,int y,int number){
-  int cornerX=(x/3)*3;
-  int cornerY=(y/3)*3;
-  for(int i=0;i<8;i++){
-    if(arr[i][y]==number){
-      return false;
-    }
-  }
-  for(int i=0;i<8;i++){
-    if(arr[x][i]==number){
-      return false;
-    }
-  }
-  for(int i=cornerY;i<(cornerY+3);i++){
-    for(int j=cornerX;j<(cornerX+3);j++){
-      if(arr[j][i]==number){
-        return false;
-      }
-    }
-  }
-  return true;
-}
-
-
-
-//! do nr4.
-bool sudokuSolve(int **arr,int x,int y){
-  if(y>8){
-    return 1;
-  }
-  if(x>8){
-    return sudokuSolve(arr,0,y+1);  //! this might have to change. 
-  }
-  if(arr[x][y]>0){
-    sudokuSolve(arr,x+1,y);
-  }
-  bool check=0;
-  for(int i=1;i<10;i++){
-    if(sudokuCheck(arr,x,y,i)){
-      arr[x][y]=i;
-      if(sudokuSolve(arr,x+1,y)){
-        return 1;
-      }
-    }
-    arr[x][y]=0;
-  }
-  return check;
-};
-
-
-
 
 void boolPrinter(bool **arr,int sizeOfX,int sizeOfY){
     for (int i=0; i<sizeOfY;i++){
       for (int j=0;j<sizeOfX;j++){
         cout << arr[j][i];
-      }
-    cout << endl;
-  }
-}
-void intPrinter(int **arr,int sizeOfX,int sizeOfY){
-    for (int i=0; i<sizeOfY;i++){
-      for (int j=0;j<sizeOfX;j++){
-        cout << arr[j][i];
-        if(j<(sizeOfX-1)){
-          cout<<',';
-        }
       }
     cout << endl;
   }
@@ -184,38 +110,9 @@ for(int j=0;j<innR;j++){
   infile.close();
 
 
-  /*
-  int j=0;
-  while(getline(infile,str)) {
-    int xCord=0;
-    // you could do this to access each element in each line 
-      for(int i = 0; i < str.length(); i++) {
-        if(str[i]!=' ')
-        array[xCord][j]=atoi(&str[i]);
-        xCord++;
-      }
-    j++;
-  }
-  */
   cout << sizeOfBlob(array,innR,innC,innY,innX,type) << endl;
   array[innX][innY]=true;
   //boolPrinter(array,innR,innC);
   boolDeleteArray(array,innR);
-
-/*
-
-  bool **array;
-  array = new bool *[columns];
-  for(int i = 0; i <columns; i++){
-    array[i] = new bool[rows];
-  }
-  for (int i=0; i<rows;i++){
-    //initalize array with 0.
-    for (int j=0;j<columns;j++){
-      array[i][j]=0;
-    }
-  }
-*/
-
 
 }

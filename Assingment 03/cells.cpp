@@ -75,11 +75,6 @@ int main(int argc, char* argv[])
   unsigned int innX=atoi(argv[4])-1;
   unsigned int innY=atoi(argv[5])-1;
   unsigned int type=atoi(argv[6]);
-  //unsigned int rows=innR;
-  //unsigned int columns=innC;
-
-
-
 
   bool **array=boolArray(innR,innC);
 

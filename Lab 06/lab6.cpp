@@ -39,7 +39,12 @@ void merge(int* A, int n, int mid) {
 }
 
 void mergesort(int* A, int n) {
-
+    if (n < 2) {
+        return;
+    }
+    mergesort(A, n/2);
+    mergesort(A + n/2, n/2);
+    merge(A, n, n/2);
     /* Implement mergesort here */
 
 }

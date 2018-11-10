@@ -1,6 +1,7 @@
 #stuff to ignore
 *.pdf
 *.xoj
+.DS_Store
 Assingment 03/cells
 
 # Prerequisites

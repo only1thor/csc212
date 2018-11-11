@@ -8,6 +8,15 @@ using namespace std;
 const unsigned int sizeOfArray=5;
 //! find out how to pass a 2d array.
 
+void prettyPrint(double x[],double y[],double z[],char Cid[],int lines){
+    for(int i=0;i<lines;i++){
+        cout << "x: " << x[i];
+        cout << "   y:  " << y[i];
+        cout << "   z:  " << z[i];
+        cout << "   Cid:" << Cid[i] << endl;
+    }
+}
+
 
 int main(int argc, char* argv[])
 {
@@ -24,20 +33,31 @@ int main(int argc, char* argv[])
 
     // creates a string str to hold the file lines
     string str;
-      // each time the below function runs, the entire line from the text file is stored in string str
-    int z=0;
-    while(!infile.eof()){
+
+    // create some arrays to hold the info:
+    double x[310]={0};
+    double y[310]={0};
+    double z[310]={0};
+    char Cid[310]={'0'};
+    
+    for(int i=0;!infile.eof();){
+        // each time the below function runs, the entire line from the text file is stored in string str
         getline(infile,str);
         if(str.substr(0,4).compare("ATOM") ==0){
             if(str.substr(13,2).compare("CA") ==0){
-                cout << str << endl;
-                cout << " x: "<<stod(str.substr(31,7)) <<" y: "<<stod(str.substr(39,7)) <<" z: "<<stod(str.substr(47,7)) <<endl;
+                //cout << str << endl;
+                x[i]=stod(str.substr(31,7));
+                y[i]=stod(str.substr(39,7));
+                z[i]=stod(str.substr(47,7));
+                Cid[i]=str[21];
+                i++;
+                //cout << " x: "<<stod(str.substr(31,7)) <<" y: "<<stod(str.substr(39,7)) <<" z: "<<stod(str.substr(47,7)) << " Cid: " << str.substr(21,1)<<endl;
             }
         }
-        //for(int i=0;i<innC;i++){}
     }
     // Step 4. Remember to close your file reader once you are done with it
     infile.close();
 
+    prettyPrint(x,y,z,Cid, 310);
     
 }

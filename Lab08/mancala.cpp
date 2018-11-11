@@ -54,6 +54,14 @@ int MancalaSolver::removeByIndex(unsigned int idx) {
 */
 void MancalaSolver::append(int idx, int pieces) {
     // TODO: Implement append
+    Pin* pit= new Pit(idx,pieces);
+    if(curr!=NULL){
+        curr->next=pit;
+    }
+    else{
+        curr=pit;
+        head=pit;
+    }
 }
 
 /*

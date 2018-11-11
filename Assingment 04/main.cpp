@@ -26,10 +26,13 @@ int main(int argc, char* argv[])
     string str;
       // each time the below function runs, the entire line from the text file is stored in string str
     int z=0;
-    for(int j=0;j<500;j++){
+    while(!infile.eof()){
         getline(infile,str);
         if(str.substr(0,4).compare("ATOM") ==0){
-            cout << str << endl;
+            if(str.substr(13,2).compare("CA") ==0){
+                cout << str << endl;
+                cout << " x: "<<stod(str.substr(31,7)) <<" y: "<<stod(str.substr(39,7)) <<" z: "<<stod(str.substr(47,7)) <<endl;
+            }
         }
         //for(int i=0;i<innC;i++){}
     }

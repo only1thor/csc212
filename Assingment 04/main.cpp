@@ -4,9 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "list.h"
 using namespace std;
-const unsigned int sizeOfArray=5;
-//! find out how to pass a 2d array.
 
 void prettyPrint(double x[],double y[],double z[],char Cid[],int lines){
     for(int i=0;i<lines;i++){

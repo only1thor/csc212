@@ -5,8 +5,25 @@ class Node {
         double z;
         char chain;
 
-        Node * next;
+        Node* next;
+        Node* nabo; // nearest neighbor (nabo is neighbor in norwegian.)
     public:
-        Node();
+        Node(double inx, double iny, double inz,char inchain);
         ~Node();
+
+        friend class List;
+};
+
+class List {
+    private:
+    // stuff
+    int nodeCount;
+
+    public:
+    // more stuff 
+    Node* current;
+    List();
+    ~List();
+    void insert(double x,double y ,double z,char chain);
+    void print();
 };

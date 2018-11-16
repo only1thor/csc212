@@ -33,23 +33,18 @@ int main(int argc, char* argv[])
     // creates a string str to hold the file lines
     string str;
 
-    // create some arrays to hold the info:
-    double x[310]={0};
-    double y[310]={0};
-    double z[310]={0};
-    char Cid[310]={'0'};
-    
-    for(int i=0;!infile.eof();){
+    List atoms;
+    for(;!infile.eof();){
         // each time the below function runs, the entire line from the text file is stored in string str
         getline(infile,str);
         if(str.substr(0,4).compare("ATOM") ==0){
             if(str.substr(13,2).compare("CA") ==0){
-                //cout << str << endl;
-                x[i]=stod(str.substr(31,7));
-                y[i]=stod(str.substr(39,7));
-                z[i]=stod(str.substr(47,7));
-                Cid[i]=str[21];
-                i++;
+                // add to datastrcture. 
+                double x = stod(str.substr(31,7));
+                double y = stod(str.substr(39,7));
+                double z = stod(str.substr(47,7));
+                char Cid = str[21];
+                atoms.insert(x,y,z,Cid);
                 //cout << " x: "<<stod(str.substr(31,7)) <<" y: "<<stod(str.substr(39,7)) <<" z: "<<stod(str.substr(47,7)) << " Cid: " << str.substr(21,1)<<endl;
             }
         }
@@ -57,6 +52,9 @@ int main(int argc, char* argv[])
     // Step 4. Remember to close your file reader once you are done with it
     infile.close();
 
-    prettyPrint(x,y,z,Cid, 310);
+
+    atoms.print();
+    cout << atoms.size() << endl;
+    //prettyPrint(x,y,z,Cid, 310);
     
 }

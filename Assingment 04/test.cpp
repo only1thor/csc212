@@ -10,6 +10,10 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    List* blah=new List();
-    *blah.insert(1,23,4,'b');
+    List blah;
+    blah.insert(1,23,4,'b');
+    blah.insert(1,3,9,'b');
+    blah.insert(1,2,2,'y');
+    blah.insert(7,0,4,'y');
+    blah.print();
 }

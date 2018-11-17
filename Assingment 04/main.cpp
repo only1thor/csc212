@@ -3,6 +3,7 @@
 #include <stdlib.h>     /* malloc, free, rand */
 #include <iostream>
 #include <fstream>
+#include <ostream>
 #include <string>
 #include "list.h"
 using namespace std;
@@ -51,10 +52,8 @@ int main(int argc, char* argv[])
     }
     // Step 4. Remember to close your file reader once you are done with it
     infile.close();
-
-
-    atoms.print();
-    cout << atoms.size() << endl;
+    atoms.findNN();
+    atoms.printLN();
     //prettyPrint(x,y,z,Cid, 310);
     
 }

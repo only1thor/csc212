@@ -27,6 +27,10 @@ class List {
     void recDel(Node* n, int c);
     void insert(double x,double y ,double z,char chain);
     void print();
+    void printL();
+    void printN();
+    void printLN();
     int size();
     void findNN();
+    void move(int a);
 };

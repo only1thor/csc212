@@ -16,4 +16,8 @@ int main(int argc, char* argv[])
     blah.insert(1,2,2,'y');
     blah.insert(7,0,4,'y');
     blah.print();
+    blah.findNN();
+    cout<< endl << "nn:" << endl;
+    blah.printN();
+    blah.printLN();
 }

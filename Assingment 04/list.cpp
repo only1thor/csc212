@@ -14,7 +14,9 @@ Node::~Node(){
 }
 
 double Node::distance(Node* p){
-    return sqrt((x*p->x)+(y*p->y)+(z*p->z));
+    // distance is taken between the "current" node to node p. 
+    // p is a pointer to the node you want to check the distance to.
+    return sqrt(pow(p->x-x,2)+pow(p->y-y,2)+pow(p->z-z,2));
 }
 
 List::List(){
@@ -47,12 +49,17 @@ void List::insert(double x, double y, double z, char chain){
         current->next=n;
         current=n;
     }
-    nodeCount++;
+    ++nodeCount;
 }
 
 void List::print(){
+        cout<<current->x << "," << current->y << ","; 
+        cout << current->z << "," << current->chain;
+}
+
+void List::printL(){
     cout << "---"<<endl;
-    for(int i=0;i<nodeCount+1;i++){
+    for(int i=0;i<nodeCount;i++){
         cout<<current->x << "," << current->y << ","; 
         cout << current->z << "," << current->chain<< endl;
         cout << "---" << endl;
@@ -60,20 +67,56 @@ void List::print(){
     }
 }
 
+void List::printN(){
+        cout << "---" << endl;
+        print();
+        cout << " -> ";
+        cout<<current->nabo->x << "," << current->nabo->y << ","; 
+        cout << current->nabo->z << "," << current->nabo->chain;
+        cout << endl;
+        cout << "---" << endl;
+}
+
+void List::printLN(){
+    cout << "---"<<endl;
+    for(int i=0;i<nodeCount;i++){
+        printN();
+        current=current->next;
+    }
+}
+
+
 int List::size(){
     return nodeCount;
 }
 
 
 void List::findNN(){
+    Node* n;
     for(int i=0;i<nodeCount;++i){
-        Node* n=current->next;
+        n=current->next;
         double dist = current->distance(n);
+        current->nabo=n;
         for(int j=0;j<(nodeCount-1);++j){
+            // find distance:
+            double chDist=current->distance(n);
+            // cout << endl << "curdist: " << chDist << endl;
             // compare 
-            
+            if(dist>chDist){
+                dist=chDist;
+                // store nearest neighbor:
+                current->nabo=n;
+            }
+            n=n->next;
         }
         // move current
+        current=current->next;
+    }
+}
+
+void List::move(int a){
+    // move current pointer "a" nodes along the list.
+    for(int i=0;i<a;++i){
         current=current->next;
     }
 }

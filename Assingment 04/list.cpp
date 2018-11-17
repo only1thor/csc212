@@ -1,5 +1,6 @@
 #include "list.h"
 #include <iostream>
+#include <math.h>
 using namespace std;
 
 Node::Node(double inx ,double iny ,double inz ,char inchain){
@@ -10,6 +11,10 @@ Node::Node(double inx ,double iny ,double inz ,char inchain){
 }
 Node::~Node(){
     
+}
+
+double Node::distance(Node* p){
+    return sqrt((x*p->x)+(y*p->y)+(z*p->z));
 }
 
 List::List(){
@@ -56,5 +61,19 @@ void List::print(){
 }
 
 int List::size(){
-        return nodeCount;
+    return nodeCount;
+}
+
+
+void List::findNN(){
+    for(int i=0;i<nodeCount;++i){
+        Node* n=current->next;
+        double dist = current->distance(n);
+        for(int j=0;j<(nodeCount-1);++j){
+            // compare 
+            
+        }
+        // move current
+        current=current->next;
     }
+}

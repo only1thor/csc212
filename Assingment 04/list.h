@@ -10,7 +10,7 @@ class Node {
     public:
         Node(double inx, double iny, double inz,char inchain);
         ~Node();
-
+        double distance(Node* p);
         friend class List;
 };
 
@@ -27,5 +27,6 @@ class List {
     void recDel(Node* n, int c);
     void insert(double x,double y ,double z,char chain);
     void print();
-    int size(void);
+    int size();
+    void findNN();
 };

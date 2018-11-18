@@ -52,9 +52,17 @@ void List::insert(double x, double y, double z, char chain){
     ++nodeCount;
 }
 
-void List::print(){
-        cout<<current->x << "," << current->y << ","; 
-        cout << current->z << "," << current->chain;
+string List::print(){
+    string n;
+    n= to_string(current->x) + ", " + to_string(current->y) + ", ";
+    n += to_string(current->z) + ", " + current->chain;
+    return n;
+}
+string List::printN(){
+    string n="0";
+    n= to_string(current->nabo->x) + ", " + to_string(current->nabo->y) + ", ";
+    n += to_string(current->nabo->z) + ", " + current->nabo->chain;
+    return n;
 }
 
 void List::printL(){
@@ -67,20 +75,11 @@ void List::printL(){
     }
 }
 
-void List::printN(){
-        cout << "---" << endl;
-        print();
-        cout << " -> ";
-        cout<<current->nabo->x << "," << current->nabo->y << ","; 
-        cout << current->nabo->z << "," << current->nabo->chain;
-        cout << endl;
-        cout << "---" << endl;
-}
 
 void List::printLN(){
     cout << "---"<<endl;
     for(int i=0;i<nodeCount;i++){
-        printN();
+        cout << print() << "->" << printN() << endl;
         current=current->next;
     }
 }
@@ -97,7 +96,8 @@ void List::findNN(){
         n=current->next;
         double dist = current->distance(n);
         current->nabo=n;
-        for(int j=0;j<(nodeCount-1);++j){
+        for(int j=0;j<(nodeCount-1);++j){ 
+            // (nodeCount-1) to avoid finding the current node. 
             // find distance:
             double chDist=current->distance(n);
             // cout << endl << "curdist: " << chDist << endl;

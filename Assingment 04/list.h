@@ -1,3 +1,6 @@
+#include <string>
+using namespace std;
+
 class Node {
     private:
         double x;
@@ -26,9 +29,9 @@ class List {
     ~List();
     void recDel(Node* n, int c);
     void insert(double x,double y ,double z,char chain);
-    void print();
+    string print();
     void printL();
-    void printN();
+    string printN();
     void printLN();
     int size();
     void findNN();

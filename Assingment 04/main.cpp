@@ -8,16 +8,6 @@
 #include "list.h"
 using namespace std;
 
-void prettyPrint(double x[],double y[],double z[],char Cid[],int lines){
-    for(int i=0;i<lines;i++){
-        cout << "x: " << x[i];
-        cout << "   y:  " << y[i];
-        cout << "   z:  " << z[i];
-        cout << "   Cid:" << Cid[i] << endl;
-    }
-}
-
-
 int main(int argc, char* argv[])
 {
     // Step 1. Get the filename from the command line
@@ -52,8 +42,21 @@ int main(int argc, char* argv[])
     }
     // Step 4. Remember to close your file reader once you are done with it
     infile.close();
+
+    ofstream outfile;
+    //outfile.open("coords.js");
+    outfile.open("test.csv");
+
     atoms.findNN();
-    atoms.printLN();
-    //prettyPrint(x,y,z,Cid, 310);
+
+    outfile << "var colors = ["<<endl;
+    string n;
+    for(int i=atoms.size();i>0;--i){
+        n= "    " + atoms.print()+ ", " + atoms.printN() + ",";
+        outfile <<n<<endl;
+        atoms.move(1);
+    }
+    outfile << "];" << endl;
+    //atoms.printLN();
     
 }

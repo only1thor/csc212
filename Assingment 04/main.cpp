@@ -1,6 +1,6 @@
 // Thor Christian Cusick.
-#include <stdio.h>      /* printf, scanf, NULL */
-#include <stdlib.h>     /* malloc, free, rand */
+//#include <stdio.h>      /* printf, scanf, NULL */
+//#include <stdlib.h>     /* malloc, free, rand */
 #include <iostream>
 #include <fstream>
 #include <ostream>
@@ -44,19 +44,29 @@ int main(int argc, char* argv[])
     infile.close();
 
     ofstream outfile;
-    //outfile.open("coords.js");
-    outfile.open("test.csv");
+    outfile.open("coords.js");
+    //outfile.open("test.csv");
 
     atoms.findNN();
-
-    outfile << "var colors = ["<<endl;
+    atoms.move(1);
+    outfile << "var coords = [" << endl;
     string n;
     for(int i=atoms.size();i>0;--i){
-        n= "    " + atoms.print()+ ", " + atoms.printN() + ",";
-        outfile <<n<<endl;
+        n= "  " + atoms.print() + atoms.printN();
+        outfile << n << endl;
         atoms.move(1);
     }
-    outfile << "];" << endl;
-    //atoms.printLN();
+    outfile << "];";
+    outfile.close();
     
+    // make the colors.js file:
+    outfile.open("colors.js");
+    outfile << "var colors = [" << endl;
+    for(int i=atoms.size();i>0;--i){
+        n= "  " + atoms.printC();
+        outfile << n << endl;
+        atoms.move(1);
+    }
+    outfile << "];";
+    outfile.close();
 }

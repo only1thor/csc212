@@ -1,5 +1,10 @@
 #include "list.h"
 #include <iostream>
+#include <cfloat>
+#include <sstream>
+#include <string>
+#include <iomanip>
+#include <fstream>
 #include <math.h>
 using namespace std;
 
@@ -54,14 +59,66 @@ void List::insert(double x, double y, double z, char chain){
 
 string List::print(){
     string n;
-    n= to_string(current->x) + ", " + to_string(current->y) + ", ";
-    n += to_string(current->z) + ", " + current->chain;
+    stringstream stream;
+    stream << fixed << setprecision(3) << current->x;
+    n = stream.str() + ", "; 
+    stream.str("");
+    stream << fixed << setprecision(3) << current->y;
+    n += stream.str() + ", "; 
+    stream.str("");
+    stream << fixed << setprecision(3) << current->z;
+    n += stream.str() + ", ";
     return n;
 }
 string List::printN(){
     string n="0";
+    /*
     n= to_string(current->nabo->x) + ", " + to_string(current->nabo->y) + ", ";
-    n += to_string(current->nabo->z) + ", " + current->nabo->chain;
+    n += to_string(current->nabo->z) + ", ";// + current->nabo->chain;
+    */
+    stringstream stream;
+    stream << fixed << setprecision(3) << current->nabo->x;
+    n = stream.str() + ", "; 
+    stream.str("");
+    stream << fixed << setprecision(3) << current->nabo->y;
+    n += stream.str() + ", "; 
+    stream.str("");
+    stream << fixed << setprecision(3) << current->nabo->z;
+    n += stream.str() + ", ";
+    return n;
+}
+
+
+string List::printC(){
+    string n;
+
+    // getting the colors for the current node
+    if('A'==current->chain)
+        n="0, 0, 1,";
+    else if('B'==current->chain)
+        n="0, 1, 0,";
+    else if('C'==current->chain)
+        n="1, 0, 0,";
+    else if('D'==current->chain)
+        n="1, 1, 0,";
+    else if('E'==current->chain)
+        n="1, 1, 1,";
+    else
+        n="1, 0.5, 0,";
+
+    // getting the colors for the nearest neighbor
+    if('A'==current->nabo->chain)
+        n+=" 0, 0, 1,";
+    else if('B'==current->nabo->chain)
+        n+=" 0, 1, 0,";
+    else if('C'==current->nabo->chain)
+        n+=" 1, 0, 0,";
+    else if('D'==current->nabo->chain)
+        n+=" 1, 1, 0,";
+    else if('E'==current->nabo->chain)
+        n+=" 1, 1, 1,";
+    else
+        n+=" 1, 0, 1,";
     return n;
 }
 
@@ -69,7 +126,7 @@ void List::printL(){
     cout << "---"<<endl;
     for(int i=0;i<nodeCount;i++){
         cout<<current->x << "," << current->y << ","; 
-        cout << current->z << "," << current->chain<< endl;
+        cout << current->z << "," /* << current->chain */<< endl;
         cout << "---" << endl;
         current=current->next;
     }
@@ -88,6 +145,9 @@ void List::printLN(){
 int List::size(){
     return nodeCount;
 }
+
+
+
 
 
 void List::findNN(){
@@ -113,6 +173,10 @@ void List::findNN(){
         current=current->next;
     }
 }
+
+
+
+
 
 void List::move(int a){
     // move current pointer "a" nodes along the list.

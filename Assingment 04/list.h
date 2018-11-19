@@ -30,8 +30,9 @@ class List {
     void recDel(Node* n, int c);
     void insert(double x,double y ,double z,char chain);
     string print();
-    void printL();
     string printN();
+    string printC();
+    void printL();
     void printLN();
     int size();
     void findNN();

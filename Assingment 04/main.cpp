@@ -1,7 +1,4 @@
 // Thor Christian Cusick.
-//#include <stdio.h>      /* printf, scanf, NULL */
-//#include <stdlib.h>     /* malloc, free, rand */
-#include <iostream>
 #include <fstream>
 #include <ostream>
 #include <string>
@@ -30,13 +27,12 @@ int main(int argc, char* argv[])
         getline(infile,str);
         if(str.substr(0,4).compare("ATOM") ==0){
             if(str.substr(13,2).compare("CA") ==0){
-                // add to datastrcture. 
                 double x = stod(str.substr(31,7));
                 double y = stod(str.substr(39,7));
                 double z = stod(str.substr(47,7));
                 char Cid = str[21];
+                // add to datastrcture. 
                 atoms.insert(x,y,z,Cid);
-                //cout << " x: "<<stod(str.substr(31,7)) <<" y: "<<stod(str.substr(39,7)) <<" z: "<<stod(str.substr(47,7)) << " Cid: " << str.substr(21,1)<<endl;
             }
         }
     }
@@ -47,14 +43,19 @@ int main(int argc, char* argv[])
     outfile.open("coords.js");
     //outfile.open("test.csv");
 
-    atoms.findNN();
+    // have the data object find all the nearest neighbors and store them.
+    atoms.findNN(); 
+    // after the findNN is finished, the current pointer is at the last item added
+    // so now it must be moved to the front. 
+    // (this works since the structure is circular!) 
     atoms.move(1);
     outfile << "var coords = [" << endl;
     string n;
-    for(int i=atoms.size();i>0;--i){
+    for(int i=atoms.size();i>0;--i){ // itterate throgh all the nodes.
+        // concatinate the current and the nearest neighbor locations.
         n= "  " + atoms.print() + atoms.printN();
         outfile << n << endl;
-        atoms.move(1);
+        atoms.move(1); // move the current pointer to the next node.
     }
     outfile << "];";
     outfile.close();
@@ -63,6 +64,7 @@ int main(int argc, char* argv[])
     outfile.open("colors.js");
     outfile << "var colors = [" << endl;
     for(int i=atoms.size();i>0;--i){
+        // procedure is similar to the one for coords.js. 
         n= "  " + atoms.printC();
         outfile << n << endl;
         atoms.move(1);

@@ -1,10 +1,7 @@
 #include "list.h"
-#include <iostream>
-#include <cfloat>
-#include <sstream>
 #include <string>
+#include <sstream>
 #include <iomanip>
-#include <fstream>
 #include <math.h>
 using namespace std;
 
@@ -15,7 +12,10 @@ Node::Node(double inx ,double iny ,double inz ,char inchain){
     chain=inchain;
 }
 Node::~Node(){
-    
+    // TODO make a working destructor. 
+    //if(next!=0)
+    //delete next;
+    //delete nabo;
 }
 
 double Node::distance(Node* p){
@@ -32,12 +32,14 @@ List::~List(){
     recDel(current,nodeCount);
 }
 void List::recDel(Node* n,int c){
+    // recursively delete each node. 
     if(!c){
+    // when the counter is 0, all nodes are deleted. 
         delete n;
     }
-    else{
+    else{// recurse to the next node, and decrement counter
     recDel(n->next,c-1);
-    delete n;
+    delete n;// after recursion delete the node. 
     }
 }
 
@@ -45,7 +47,7 @@ void List::recDel(Node* n,int c){
 void List::insert(double x, double y, double z, char chain){
     // make a new node with all the data. 
     Node* n=new Node(x,y,z,chain);
-    if(current==0){
+    if(current==0){ // if the list is empty, make an inital node. 
         current=n;// move from NULL to the first node
         n->next=n;// point first node to it self. 
     }
@@ -57,7 +59,8 @@ void List::insert(double x, double y, double z, char chain){
     ++nodeCount;
 }
 
-string List::print(){
+string List::print(){ 
+    // print the current node's x,y, and z value, in csv format.
     string n;
     stringstream stream;
     stream << fixed << setprecision(3) << current->x;
@@ -71,11 +74,8 @@ string List::print(){
     return n;
 }
 string List::printN(){
-    string n="0";
-    /*
-    n= to_string(current->nabo->x) + ", " + to_string(current->nabo->y) + ", ";
-    n += to_string(current->nabo->z) + ", ";// + current->nabo->chain;
-    */
+    // print the current node's nearest neighbor's x,y, and z value, in csv format.
+    string n;
     stringstream stream;
     stream << fixed << setprecision(3) << current->nabo->x;
     n = stream.str() + ", "; 
@@ -90,8 +90,9 @@ string List::printN(){
 
 
 string List::printC(){
+    // print the current node, and it's nearest neighbor's color value, 
+    // based on the chain. 
     string n;
-
     // getting the colors for the current node
     if('A'==current->chain)
         n="0, 0, 1,";
@@ -122,33 +123,9 @@ string List::printC(){
     return n;
 }
 
-void List::printL(){
-    cout << "---"<<endl;
-    for(int i=0;i<nodeCount;i++){
-        cout<<current->x << "," << current->y << ","; 
-        cout << current->z << "," /* << current->chain */<< endl;
-        cout << "---" << endl;
-        current=current->next;
-    }
-}
-
-
-void List::printLN(){
-    cout << "---"<<endl;
-    for(int i=0;i<nodeCount;i++){
-        cout << print() << "->" << printN() << endl;
-        current=current->next;
-    }
-}
-
-
 int List::size(){
     return nodeCount;
 }
-
-
-
-
 
 void List::findNN(){
     Node* n;
@@ -173,10 +150,6 @@ void List::findNN(){
         current=current->next;
     }
 }
-
-
-
-
 
 void List::move(int a){
     // move current pointer "a" nodes along the list.

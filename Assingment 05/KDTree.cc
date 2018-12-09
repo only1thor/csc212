@@ -33,17 +33,52 @@ KDTree::~KDTree() {
 }
 
 void KDTree::destroy(KDNode *p) {
-    // ********************************
-    // TODO
-    // ********************************
+    if(!p){
+        return;
+    }
+    destroy(p->left);
+    destroy(p->right);
+    delete(p);
+    return;
 }
 
 
 void KDTree::insert(double lat, double lon, const char *desc) {
-    // ********************************
-    // TODO
-    // need to increase size after each successful insertion
-    // ********************************
+    KDNode p(lat,lon,desc);
+    insert(p,root);
+}
+bool KDTree::insert(KDNode* p, KDNode* r){
+    if(!r){
+        return true;
+    }
+
+    if(r->depth%2==0){
+        if( p->latitude < r->latitude){
+            if(insert(p,r->left)){
+                r->left=p;
+                return false;
+            }
+        }
+        else{
+            if(insert(p,r->right)){
+                r->right=p;
+                return false;
+            }
+        }
+    }
+    else{
+        if( p->longitude < r->longitude){
+            if(insert(p,r->left)){
+                r->left=p;
+                return false;
+            }
+        }
+        else{
+            if(insert(p,r->right)){
+                r->right=p;
+                return false;
+        }
+    }
 }
 
 unsigned int KDTree::printNeighbors(double lat, double lon, double rad, const char *filter) {
@@ -54,8 +89,5 @@ unsigned int KDTree::printNeighbors(double lat, double lon, double rad, const ch
 }
 
 unsigned int KDTree::getSize() {
-    // ********************************
-    // TODO
-    // ********************************
-    return -1;
+    return size;
 }

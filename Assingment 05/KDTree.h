@@ -37,6 +37,7 @@ class KDTree {
         void insert(double lat, double lon, const char *desc);
         bool insert(KDNode* p, KDNode* r);
         unsigned int printNeighbors(double lat, double lon, double rad, const char *filter);
+        unsigned int printNeighbors(KDNode* p,KDNode* r,double rad);
 };
 
 #endif

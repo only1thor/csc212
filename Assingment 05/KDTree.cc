@@ -45,7 +45,9 @@ void KDTree::destroy(KDNode *p) {
 
 void KDTree::insert(double lat, double lon, const char *desc) {
     KDNode p(lat,lon,desc);
-    insert(p,root);
+    if(insert(&p,root)){
+       root=&p;  
+    }
 }
 bool KDTree::insert(KDNode* p, KDNode* r){
     if(!r){
@@ -81,7 +83,7 @@ bool KDTree::insert(KDNode* p, KDNode* r){
     }
 }
 
-unsigned int KDTree::printNeighbors(double lat, double lon, double rad, const char *filter) {
+unsigned int KDTree::printNeighbors(double lat, double lon, double rad, const char *filter){
     // ********************************
     // TODO
     // ********************************
@@ -100,6 +102,6 @@ unsigned int KDTree::printNeighbors(KDNode* p,KDNode* r,double rad){
     // 1 or 0 if this recurseive check fond one. 
 }
 
-unsigned int KDTree::getSize() {
+unsigned int KDTree::getSize(){
     return size;
 }

@@ -44,9 +44,9 @@ void KDTree::destroy(KDNode *p) {
 
 
 void KDTree::insert(double lat, double lon, const char *desc) {
-    KDNode p(lat,lon,desc);
-    if(insert(&p,root)){
-       root=&p;  
+    KDNode* p(lat,lon,desc);
+    if(insert(*p,root)){
+       root=*p;  
     }
 }
 bool KDTree::insert(KDNode* p, KDNode* r){
@@ -89,6 +89,35 @@ unsigned int KDTree::printNeighbors(double lat, double lon, double rad, const ch
     // ********************************
     unsigned int counterOfResults=0;
     return -1;
+}
+
+unsigned int KDTree::printNeighbors(double lat, double lon, double rad, const char *filter, KDNode* c){
+    counterOfResults=0;
+    if(c.distance(lat,lon)<rad){
+        // TODO check filter
+        // if filter, print, and add to sum. 
+        counterOfResults += printNeighbors(lat,lon,rad,filter,c->right);
+        counterOfResults += printNeighbors(lat,lon,rad,filter,c->left);
+    }
+    else{
+        if(c->depth%2){
+            if(c->longitude<lon){
+                counterOfResults += printNeighbors(lat,lon,rad,filter,c->right);
+            }
+            else{
+                counterOfResults += printNeighbors(lat,lon,rad,filter,c->left);
+            }
+        }
+        else{
+            if(c->latitude<lat){
+                counterOfResults += printNeighbors(lat,lon,rad,filter,c->right);
+            }
+            else{
+                counterOfResults += printNeighbors(lat,lon,rad,filter,c->left);
+            }
+        }
+    }
+    return counterOfResults;
 }
 
 unsigned int KDTree::printNeighbors(KDNode* p,KDNode* r,double rad){

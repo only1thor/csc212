@@ -45,6 +45,7 @@ void KDTree::destroy(KDNode *p) {
 
 void KDTree::insert(double lat, double lon, const char *desc) {
     KDNode* p(lat,lon,desc);
+    ++size;
     if(insert(*p,root)){
        root=*p;  
     }

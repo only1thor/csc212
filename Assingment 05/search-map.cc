@@ -51,7 +51,7 @@ int main(int argc, char **args) {
     // ***************************************************************
     // TODO
     // for now a LinkedList, you should replace this line by your kDTree
-    LinkedList list;
+    KDTree list;
     // ***************************************************************
 
     // if correct number of parameters

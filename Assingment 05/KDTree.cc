@@ -88,11 +88,8 @@ bool KDTree::insert(KDNode* p, KDNode* r){
 }
 
 unsigned int KDTree::printNeighbors(double lat, double lon, double rad, const char *filter){
-    // ********************************
-    // TODO
-    // ********************************
-    unsigned int counterOfResults=0;
-    return -1;
+    unsigned int counterOfResults= printNeighbors(lat,lon,rad,filter,root);
+    return counterOfResults;
 }
 
 unsigned int KDTree::printNeighbors(double lat, double lon, double rad, const char *filter, KDNode* c){
@@ -129,18 +126,6 @@ unsigned int KDTree::printNeighbors(double lat, double lon, double rad, const ch
     return counterOfResults;
 }
 
-/*
-unsigned int KDTree::printNeighbors(KDNode* p,KDNode* r,double rad){
-    // TODO if the p-description is a substring of r->description
-    // TODO if the current node r is outside of radius, 
-    // and r->lat/lon (dependent on r->depth%2), is less then, 
-    // p->lat/lon, recurse r->right (to get closer), 
-    // or left if it's larger. 
-
-    // return the amount of found nodes from recursions plus, 
-    // 1 or 0 if this recurseive check fond one. 
-}
-*/
 
 unsigned int KDTree::getSize(){
     return size;

@@ -55,8 +55,8 @@ bool KDTree::insert(KDNode* p, KDNode* r){
     if(!r){
         return true;
     }
-
-    if(r->depth%2==0){
+    p->depth++;
+    if(!(r->depth%2)){
         if( p->latitude < r->latitude){
             if(insert(p,r->left)){
                 r->left=p;
@@ -88,7 +88,10 @@ bool KDTree::insert(KDNode* p, KDNode* r){
 }
 
 unsigned int KDTree::printNeighbors(double lat, double lon, double rad, const char *filter){
+    std::cout << "var markers = [\n";
+    std::cout << "\t[\"" << "CENTER" << "\", " << lat << ", " << lon << "],\n";
     unsigned int counterOfResults= printNeighbors(lat,lon,rad,filter,root);
+    std::cout << "];\n";
     return counterOfResults;
 }
 
@@ -97,7 +100,7 @@ unsigned int KDTree::printNeighbors(double lat, double lon, double rad, const ch
         return 0;
     }
     unsigned int counterOfResults=0;
-    if(c->distance(lat,lon)<rad){
+    if(c->distance(lat,lon)<=rad){
         if(c->description.find(filter) != std::string::npos) {
             std::cout << "\t[\"" << c->description << "\", " << c->latitude << ", " << c->longitude << "],\n";
             ++counterOfResults;

@@ -1,5 +1,6 @@
 #include "KDTree.h"
 #include <math.h>
+#include <iostream>
 
 KDNode::KDNode(double lat, double lon, const char *desc) {
     left = NULL;
@@ -44,10 +45,10 @@ void KDTree::destroy(KDNode *p) {
 
 
 void KDTree::insert(double lat, double lon, const char *desc) {
-    KDNode* p(lat,lon,desc);
+    KDNode* p=new KDNode(lat,lon,desc);
     ++size;
-    if(insert(*p,root)){
-       root=*p;  
+    if(insert(p,root)){
+       root=p;  
     }
 }
 bool KDTree::insert(KDNode* p, KDNode* r){
@@ -80,8 +81,10 @@ bool KDTree::insert(KDNode* p, KDNode* r){
             if(insert(p,r->right)){
                 r->right=p;
                 return false;
+            }
         }
     }
+    return false;
 }
 
 unsigned int KDTree::printNeighbors(double lat, double lon, double rad, const char *filter){
@@ -93,10 +96,15 @@ unsigned int KDTree::printNeighbors(double lat, double lon, double rad, const ch
 }
 
 unsigned int KDTree::printNeighbors(double lat, double lon, double rad, const char *filter, KDNode* c){
-    counterOfResults=0;
-    if(c.distance(lat,lon)<rad){
-        // TODO check filter
-        // if filter, print, and add to sum. 
+    if(!c){
+        return 0;
+    }
+    unsigned int counterOfResults=0;
+    if(c->distance(lat,lon)<rad){
+        if(c->description.find(filter) != std::string::npos) {
+            std::cout << "\t[\"" << c->description << "\", " << c->latitude << ", " << c->longitude << "],\n";
+            ++counterOfResults;
+        }
         counterOfResults += printNeighbors(lat,lon,rad,filter,c->right);
         counterOfResults += printNeighbors(lat,lon,rad,filter,c->left);
     }
@@ -121,6 +129,7 @@ unsigned int KDTree::printNeighbors(double lat, double lon, double rad, const ch
     return counterOfResults;
 }
 
+/*
 unsigned int KDTree::printNeighbors(KDNode* p,KDNode* r,double rad){
     // TODO if the p-description is a substring of r->description
     // TODO if the current node r is outside of radius, 
@@ -131,6 +140,7 @@ unsigned int KDTree::printNeighbors(KDNode* p,KDNode* r,double rad){
     // return the amount of found nodes from recursions plus, 
     // 1 or 0 if this recurseive check fond one. 
 }
+*/
 
 unsigned int KDTree::getSize(){
     return size;

@@ -39,6 +39,8 @@ class KDTree {
         unsigned int printNeighbors(double lat, double lon, double rad, const char *filter);
         unsigned int printNeighbors(double lat, double lon, double rad, const char *filter, KDNode* c);
         unsigned int printNeighbors(KDNode* p,KDNode* r,double rad);
+        void printleft();
+        void printleft(KDNode* p);
 };
 
 #endif
